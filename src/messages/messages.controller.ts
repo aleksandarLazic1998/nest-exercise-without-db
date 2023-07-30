@@ -1,15 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Injectable, Param, Post } from '@nestjs/common';
 import { CreateMessageDTO } from './dtos/create-message-dto';
 import { MessageService } from './messages.service';
 
+@Injectable()
 @Controller('messages')
 export class MessagesController {
-  messageService: MessageService;
+  constructor(public messageService: MessageService) {}
 
-  constructor() {
-    // Todo: Do it with dependency injection
-    this.messageService = new MessageService();
-  }
   @Get()
   getAllMessages() {
     return this.messageService.findAll();
